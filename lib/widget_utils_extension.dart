@@ -1,8 +1,15 @@
 part of 'widget_utils.dart';
 
 extension WidgetUtilsExtension on Widget {
-  /// [_widgetUtils] return the instance of [ScreenUtils] for reponsiveness.
-  WidgetUtils get _widgetUtils => WidgetUtils.instance();
+  /// [_screenUtils] return the instance of [ScreenUtils] for reponsiveness.
+  ScreenUtils get _screenUtils => WidgetUtils.getScreenUtils();
+
+  /// [_localizationUtils] return the instance of [LocalizationUtils] for localization.
+  LocalizationUtils get _localizationUtils =>
+      WidgetUtils.getLocalizationUtils();
+
+  String l(String key, {List<String> params}) =>
+      _localizationUtils.localize(key, params: params);
 
   /// [getWidth] is short way the calculate width by context
   double getWidth(BuildContext context, {double percent = 1}) {
@@ -16,17 +23,17 @@ extension WidgetUtilsExtension on Widget {
 
   /// [getFontSize] returns fonts size depends on chosen [SizeType] and detechted DeviceSize
   double getFontSize(SizeType type) {
-    return _widgetUtils.getFontSize(type);
+    return _screenUtils.getFontSize(type);
   }
 
   /// [getIconSize] returns icon size depends on chosen [SizeType] and detechted DeviceSize
   double getIconSize(SizeType type) {
-    return _widgetUtils.getIconSize(type);
+    return _screenUtils.getIconSize(type);
   }
 
   /// [convertSize] converts given [size] by the user device size via basic math operations.
   double convertSize(double size) {
-    return _widgetUtils.convertToDeviceSize(size);
+    return _screenUtils.convertToDeviceSize(size);
   }
 
   /// [navPush] is short way the push [widget] on route
@@ -45,5 +52,61 @@ extension WidgetUtilsExtension on Widget {
     if (function == null) return;
 
     Future.delayed(duration, function);
+  }
+
+  /// [createErrorToast] show error [message] on the screen
+  createErrorToast(BuildContext context, String message) {
+    if (message != null) {
+      doDelayedTask(() {
+        FlushbarHelper.createError(
+          message: message,
+          title: 'Heyyy!',
+          duration: Duration(seconds: 3),
+        )..show(context);
+      });
+    }
+    return Container();
+  }
+
+  /// [createInfoToast] show information [message] on the screen
+  createInfoToast(BuildContext context, String message) {
+    if (message != null) {
+      doDelayedTask(() {
+        FlushbarHelper.createInformation(
+          message: message,
+          title: 'Notify',
+          duration: Duration(seconds: 3),
+        )..show(context);
+      });
+    }
+    return Container();
+  }
+
+  /// [createSuccessToast] show success [message] on the screen
+  createSuccessToast(BuildContext context, String message) {
+    if (message != null) {
+      doDelayedTask(() {
+        FlushbarHelper.createSuccess(
+          message: message,
+          title: 'Yeapp! :)',
+          duration: Duration(seconds: 3),
+        )..show(context);
+      });
+    }
+    return Container();
+  }
+
+  /// [createToast] [message] by the chosen [type] on the screen
+  Widget createToast(BuildContext context, String message, ToastType type) {
+    switch (type) {
+      case ToastType.SUCCESS:
+        return createSuccessToast(context, message);
+      case ToastType.ERROR:
+        return createErrorToast(context, message);
+      case ToastType.INFO:
+        return createInfoToast(context, message);
+      default:
+        return Container();
+    }
   }
 }
