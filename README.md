@@ -9,7 +9,7 @@ An widget extension like a boilerplate which extends your app widgets with helpf
 
 ``` yml
 dependencies:
-  widget_utils: ^0.2.2
+  widget_utils: ^0.2.3
 ```
 
 ### Run the code to install package
@@ -45,28 +45,28 @@ Responsive widgets(text/icons/image...) that compatible on every device
 <br />
 
 ## To initiate library
-You need to run init function with Buildcontext.
-```dart
-WidgetUtils.init(context: context);
-```
-
-I suggest the you should call the init function in onGenerationTitle event in the MaterialApp widget.
+You need to use WidgetUtilsBuilder component inside MaterialApp.
+If you want the localization feature, then specify the lang json assets and default language by assign the localizationParams prop.
 ```dart
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) {
-        // Here
-        WidgetUtils.init(context: context);
-        return "Widget Utils Demo";
-      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: WidgetUtilsBuilder(
+        screenParams: ScreenParams(allowTextScale: false),
+        localizationParams: LocalizationParams(
+            defLang: Locale("en", "US"),
+            langAssets: ["assets/lang/en.json", "assets/lang/tr.json"]),
+        builder: (_) {
+          return HomePage(
+            title: "Widget Utils Demo Project",
+          );
+        },
+      ),
     );
   }
-}
 ```
 
 
@@ -86,6 +86,13 @@ enum SizeType {
   Mega
 }
 ```
+
+__l__ method localize the given key by the localization feature.
+```dart
+String l(String key, {List<String> params}) =>
+    _localizationUtils.localize(key, params: params);
+```
+
 
 __getHeight__ is short way the calculate height by context
 ```dart
@@ -151,7 +158,7 @@ __doDelayedTask__ run the code after some minute...
 ### main.dart
 ```dart
 import 'package:flutter/material.dart';
-import 'widget_utils/widget_utils.dart';
+import 'package:widget_utils/widget_utils.dart';
 
 void main() {
   runApp(MyApp());
@@ -434,8 +441,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
 ```
 
 
