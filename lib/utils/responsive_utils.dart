@@ -1,9 +1,9 @@
-part of 'widget_utils.dart';
+part of '../index.dart';
 
 /// [ResponsiveUtils] is a library for the responsiveness.
 /// [ResponsiveUtils] converts font, icon, padding size across devices to get responsiveness.
 /// I adjusted the [_deviceSizeRateMultipliers] and [_fontOrFontSizeRateMultipliers] values but they may  not performs well in every situations.
-/// Example: [WidgetUtilsExtension]
+/// Example: [WidgetExtension]
 class ResponsiveUtils {
   SizeType deviceSize;
   BuildContext context;

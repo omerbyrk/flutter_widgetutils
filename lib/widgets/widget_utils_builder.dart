@@ -1,4 +1,4 @@
-part of 'widget_utils.dart';
+part of '../index.dart';
 
 /// Initiate [WidgetUtils] apps with given params [responsiveParams], [localizationParams].
 /// After the initiate is completed, run the builder function
@@ -16,6 +16,10 @@ class WidgetUtilsBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (WidgetUtils.isInitiated) {
+      return builder(context);
+    }
+
     return FutureBuilder<bool>(
       future: WidgetUtils.init(context,
           responsiveParams: responsiveParams,

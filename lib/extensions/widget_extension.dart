@@ -1,6 +1,6 @@
-part of 'widget_utils.dart';
+part of '../index.dart';
 
-extension WidgetUtilsExtension on Widget {
+extension WidgetExtension on Widget {
   /// [_responsiveUtils] return the instance of [ResponsiveUtils] for reponsiveness.
   ResponsiveUtils get _responsiveUtils => WidgetUtils.getResponsiveUtils();
 

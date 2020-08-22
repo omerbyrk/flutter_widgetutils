@@ -10,11 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 part 'consts.dart';
-part 'localization_utils.dart';
-part 'responsive_utils.dart';
-part 'widget_utils_builder.dart';
-part 'widget_utils_exception.dart';
-part 'widget_utils_extension.dart';
+part 'utils/localization_utils.dart';
+part 'utils/responsive_utils.dart';
+part 'widgets/widget_utils_builder.dart';
+part 'exceptions/widget_utils_exception.dart';
+part 'extensions/widget_extension.dart';
+part 'extensions/state_extension.dart';
 
 class WidgetUtils {
   WidgetUtils._internal();
@@ -39,6 +40,8 @@ class WidgetUtils {
     }
     return Future.value(true);
   }
+
+  static bool get isInitiated => _responsiveUtils != null;
 
   /// [WidgetUtils.getResponsiveUtils] return the instance of [_responsiveUtils] object.
   /// You need to init the object before using it.
