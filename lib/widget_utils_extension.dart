@@ -1,12 +1,14 @@
 part of 'widget_utils.dart';
 
 extension WidgetUtilsExtension on Widget {
-  /// [_screenUtils] return the instance of [ScreenUtils] for reponsiveness.
-  ScreenUtils get _screenUtils => WidgetUtils.getScreenUtils();
+  /// [_responsiveUtils] return the instance of [ResponsiveUtils] for reponsiveness.
+  ResponsiveUtils get _responsiveUtils => WidgetUtils.getResponsiveUtils();
 
   /// [_localizationUtils] return the instance of [LocalizationUtils] for localization.
   LocalizationUtils get _localizationUtils =>
       WidgetUtils.getLocalizationUtils();
+
+  Locale get locale => _localizationUtils.activelocale;
 
   String l(String key, {List<String> params}) =>
       _localizationUtils.localize(key, params: params);
@@ -23,17 +25,17 @@ extension WidgetUtilsExtension on Widget {
 
   /// [getFontSize] returns fonts size depends on chosen [SizeType] and detechted DeviceSize
   double getFontSize(SizeType type) {
-    return _screenUtils.getFontSize(type);
+    return _responsiveUtils.getFontSize(type);
   }
 
   /// [getIconSize] returns icon size depends on chosen [SizeType] and detechted DeviceSize
   double getIconSize(SizeType type) {
-    return _screenUtils.getIconSize(type);
+    return _responsiveUtils.getIconSize(type);
   }
 
   /// [convertSize] converts given [size] by the user device size via basic math operations.
   double convertSize(double size) {
-    return _screenUtils.convertToDeviceSize(size);
+    return _responsiveUtils.convertToDeviceSize(size);
   }
 
   /// [navPush] is short way the push [widget] on route

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: WidgetUtilsBuilder(
-        screenParams: ScreenParams(allowTextScale: false),
+        responsiveParams: ResponsiveParams(allowTextScale: false),
         localizationParams: LocalizationParams(
             defLang: Locale("en", "US"),
             langAssets: ["assets/lang/en.json", "assets/lang/tr.json"]),
@@ -32,51 +32,9 @@ class HomePage extends StatelessWidget {
   final String title;
   HomePage({Key key, this.title}) : super(key: key);
 
-  GlobalKey<ScaffoldState> scafoldKey = GlobalKey<ScaffoldState>();
-
-  Text createText(SizeType sizeType) {
-    return Text(
-      "This is " +
-          sizeType.toStringCustom() +
-          " text: " +
-          (getFontSize(sizeType).toInt()).toString() +
-          "px",
-      style: TextStyle(fontSize: getFontSize(sizeType)),
-    );
-  }
-
-  Icon createIcon(SizeType sizeType) {
-    return Icon(
-      Icons.language,
-      color: Colors.blue,
-      size: getIconSize(sizeType),
-    );
-  }
-
-  Row createTextWithIcon(SizeType sizeType) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          Icons.home,
-          size: getIconSize(sizeType),
-          color: Colors.blue,
-        ),
-        Expanded(
-          child: Text(
-            sizeType.toStringCustom() + " Text and Icon",
-            style: TextStyle(fontSize: getFontSize(sizeType)),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scafoldKey,
       appBar: AppBar(
         title: Text("Widget Utils Example"),
       ),
@@ -91,11 +49,17 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: getFontSize(SizeType.Large)),
                 ),
               ),
-              Center(
-                child: Text(
-                  l("mobile_language"),
-                  style: TextStyle(fontSize: getFontSize(SizeType.Small)),
-                ),
+              Text(
+                l("active_language"),
+                style: TextStyle(fontSize: getFontSize(SizeType.Small)),
+              ),
+              SizedBox(
+                height: convertSize(8),
+              ),
+              Text(
+                l("localization_example",
+                    params: ["${locale.languageCode}.json"]),
+                style: TextStyle(fontSize: getFontSize(SizeType.xxSmall)),
               ),
               SizedBox(
                 height: 25,
@@ -108,12 +72,9 @@ class HomePage extends StatelessWidget {
               ),
               Row(
                 children: [
-                  RaisedButton(
-                    child: Text("showToasts"),
-                    onPressed: () {
-                      createErrorToast(context, "Text example");
-                    },
-                  )
+                  createButton(context, ToastType.SUCCESS, Colors.green),
+                  createButton(context, ToastType.INFO, Colors.blue),
+                  createButton(context, ToastType.ERROR, Colors.red),
                 ],
               ),
               Center(
@@ -224,12 +185,7 @@ class HomePage extends StatelessWidget {
                                     fontSize: getFontSize(SizeType.xxSmall)),
                               ),
                               Text(
-                                "Padding -> h: " +
-                                    convertSize(16).toInt().toString() +
-                                    "px" +
-                                    " v: " +
-                                    convertSize(8).toInt().toString() +
-                                    "px",
+                                "Padding -> h: ${convertSize(16).toInt().toString()} px v:  ${convertSize(8).toInt().toString()} px",
                                 style: TextStyle(
                                     fontSize: getFontSize(SizeType.Tiny)),
                               ),
@@ -259,12 +215,7 @@ class HomePage extends StatelessWidget {
                                   fontSize: getFontSize(SizeType.xxSmall)),
                             ),
                             Text(
-                              "Padding -> h: " +
-                                  convertSize(16).toInt().toString() +
-                                  "px" +
-                                  " v: " +
-                                  convertSize(8).toInt().toString() +
-                                  "px",
+                              "Padding -> h: ${convertSize(16).toInt().toString()} px v:  ${convertSize(8).toInt().toString()} px",
                               style: TextStyle(
                                   fontSize: getFontSize(SizeType.Tiny)),
                             ),
@@ -279,6 +230,61 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Container createButton(
+      BuildContext context, ToastType toastType, Color color) {
+    return Container(
+      margin: EdgeInsets.only(left: convertSize(5)),
+      child: RaisedButton(
+        padding: EdgeInsets.symmetric(
+            vertical: convertSize(8), horizontal: convertSize(5)),
+        color: Colors.white70,
+        child: Text(
+          "${toastType.toString().split('.')[1]}",
+          style:
+              TextStyle(fontSize: getFontSize(SizeType.xxSmall), color: color),
+        ),
+        onPressed: () {
+          createToast(context, "Created a $toastType example", toastType);
+        },
+      ),
+    );
+  }
+
+  Text createText(SizeType sizeType) {
+    return Text(
+      "This is ${sizeType.toString().split('.')[1]}  text: ${getFontSize(sizeType).toInt().toString()} px",
+      style: TextStyle(fontSize: getFontSize(sizeType)),
+    );
+  }
+
+  Icon createIcon(SizeType sizeType) {
+    return Icon(
+      Icons.language,
+      color: Colors.blue,
+      size: getIconSize(sizeType),
+    );
+  }
+
+  Row createTextWithIcon(SizeType sizeType) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          Icons.home,
+          size: getIconSize(sizeType),
+          color: Colors.blue,
+        ),
+        Expanded(
+          child: Text(
+            "${getFontSize(sizeType).toInt().toString()} Text and Icon",
+            style: TextStyle(fontSize: getFontSize(sizeType)),
+          ),
+        ),
+      ],
     );
   }
 }

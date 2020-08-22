@@ -1,13 +1,14 @@
 part of 'widget_utils.dart';
 
-/// [ScreenUtils] is a library for the responsiveness.
-/// [ScreenUtils] converts font, icon, padding size across devices to get responsiveness.
+/// [ResponsiveUtils] is a library for the responsiveness.
+/// [ResponsiveUtils] converts font, icon, padding size across devices to get responsiveness.
 /// I adjusted the [_deviceSizeRateMultipliers] and [_fontOrFontSizeRateMultipliers] values but they may  not performs well in every situations.
-/// Example: [AppWidgetExtension]
-class ScreenUtils {
+/// Example: [WidgetUtilsExtension]
+class ResponsiveUtils {
   SizeType deviceSize;
   BuildContext context;
   double textScaleFactor = 1.0;
+  ResponsiveParams responsiveParams;
 
   /// If you would change it and get positive result, please push it to our repository for improving the boilerplate!
   Map<SizeType, double> _deviceSizeRateMultipliers = {
@@ -62,10 +63,15 @@ class ScreenUtils {
     SizeType.Mega: 37
   };
 
-  void init(BuildContext context, {ScreenParams screenParams}) {
+  void init(BuildContext context, {ResponsiveParams responsiveParams}) {
     this.context = context;
+    responsiveParams = responsiveParams;
     _detechDeviceSize();
-    if (screenParams == null || !screenParams.allowTextScale) {
+    _setTextScaleFactor();
+  }
+
+  _setTextScaleFactor() {
+    if (responsiveParams == null || !responsiveParams.allowTextScale) {
       this.textScaleFactor = MediaQuery.of(context).textScaleFactor;
     }
   }
@@ -93,12 +99,8 @@ class ScreenUtils {
     } else {
       deviceSize = SizeType.Mega;
     }
-    print("WidgetUtils: " +
-        width.toString() +
-        " " +
-        height.toString() +
-        " -> " +
-        deviceSize.toString());
+    _log(
+        "Width: ${width.toString()}, height: ${height.toString()}, deteched size:${deviceSize.toString()}");
   }
 
   get _sizeFontMultiplier {
@@ -127,5 +129,11 @@ class ScreenUtils {
 
   double convertToDeviceSize(double size) {
     return size * _deviceSizeMultiplier;
+  }
+
+  void _log(String text) {
+    if (responsiveParams == null || responsiveParams.logging) {
+      WidgetUtils.log(text, feature: "responsive");
+    }
   }
 }

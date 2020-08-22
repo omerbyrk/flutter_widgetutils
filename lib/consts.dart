@@ -21,21 +21,18 @@ enum SizeType {
 
 enum ToastType { SUCCESS, INFO, ERROR }
 
-extension SizeTypeToString on SizeType {
-  String toStringCustom() {
-    return this.toString().split(".")[1];
-  }
-}
-
 class LocalizationParams {
   final List<String> langAssets;
   final Locale defLang;
+  final bool logging;
 
-  LocalizationParams({@required this.langAssets, @required this.defLang});
+  LocalizationParams(
+      {@required this.langAssets, @required this.defLang, this.logging = true});
 }
 
-class ScreenParams {
+class ResponsiveParams {
   final bool allowTextScale;
+  final bool logging;
 
-  ScreenParams({this.allowTextScale = false});
+  ResponsiveParams({this.allowTextScale = false, this.logging = true});
 }

@@ -1,3 +1,4 @@
 {
-    "mobile_language": "Cihazin dili türkçe"
+    "active_language": "Aktif dil Türkçe",
+    "localization_example": "Bu bir lokalizasyon örneğidir, bu yazı {0} isimli json dosyasından geliyor."
 }

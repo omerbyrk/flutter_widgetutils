@@ -1,3 +1,4 @@
 {
-    "mobile_language": "The device language is english"
+    "active_language": "English language is active",
+    "localization_example": "This is example of the localization. This text have come from the {0} json file."
 }
