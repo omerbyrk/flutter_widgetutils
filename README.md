@@ -9,7 +9,7 @@ An widget extension like a boilerplate which extends your app widgets with helpf
 
 ``` yml
 dependencies:
-  widget_utils: ^0.2.6
+  widget_utils: ^0.2.7
 ```
 
 ### Run the code to install package

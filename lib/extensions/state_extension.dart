@@ -43,9 +43,9 @@ extension StateExtension on State {
 
   /// [createSuccessToast] show success [message] on the screen
   createSuccessToast(BuildContext context, String message) =>
-      this.createSuccessToast(context, message);
+      this.widget.createSuccessToast(context, message);
 
   /// [createToast] [message] by the chosen [type] on the screen
   Widget createToast(BuildContext context, String message, ToastType type) =>
-      this.createToast(context, message, type);
+      this.widget.createToast(context, message, type);
 }
