@@ -1,4 +1,4 @@
-part of '../index.dart';
+part of '../widget_utils.dart';
 
 /// Initiate [WidgetUtils] apps with given params [responsiveParams], [localizationParams].
 /// After the initiate is completed, run the builder function

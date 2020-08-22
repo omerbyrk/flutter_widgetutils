@@ -1,4 +1,4 @@
-part of '../index.dart';
+part of '../widget_utils.dart';
 
 abstract class WidgetUtilsException {
   factory WidgetUtilsException([var message]) => _WidgetUtilsException(message);

@@ -1,4 +1,4 @@
-part of '../index.dart';
+part of '../widget_utils.dart';
 
 extension StateExtension on State {
   Locale get locale => this.widget.locale;

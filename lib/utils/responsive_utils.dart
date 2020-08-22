@@ -1,4 +1,4 @@
-part of '../index.dart';
+part of '../widget_utils.dart';
 
 /// [ResponsiveUtils] is a library for the responsiveness.
 /// [ResponsiveUtils] converts font, icon, padding size across devices to get responsiveness.
