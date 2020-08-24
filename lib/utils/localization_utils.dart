@@ -1,4 +1,4 @@
-part of '../widget_utils.dart';
+part of widget_utils;
 
 class LocalizationUtils {
   BuildContext context;

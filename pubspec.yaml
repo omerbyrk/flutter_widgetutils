@@ -1,6 +1,6 @@
 name: widget_utils
 description: A widget boilerplate which has fetures like  responsive support, localization support, toast shor-cuts, mediaquery short-cuts, navigator short-cuts and so on.
-version: 0.2.7
+version: 0.2.8
 author: Ömer Bayrak <omerbyrk8@gmail.com>
 homepage: https://github.com/omerbyrk/flutter_widgetutils
 

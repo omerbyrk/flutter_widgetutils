@@ -1,4 +1,4 @@
-part of 'widget_utils.dart';
+part of widget_utils;
 
 const String language_path_regex =
     r'^([A-Za-z]:|[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*)((/[A-Za-z0-9_.-]+)+).json';
